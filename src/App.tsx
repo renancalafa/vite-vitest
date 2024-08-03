@@ -1,11 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
+import Button from './Button';
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [seconds, setSeconds] = useState(20)
+  const [count, setCount] = useState(0);
+  const [count2, setCount2] = useState(0);
+  const [seconds, setSeconds] = useState(20);
+
+  const handleIncrementCount2 = () => setCount2((count2) => count2 + 1);
 
   return (
     <>
@@ -23,6 +27,7 @@ function App() {
           Count is {count} <br></br>
           Velocity is {(60/seconds).toFixed(1)} RPM
         </button>
+        <Button text={String(count2)} onClick={handleIncrementCount2}/>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
@@ -31,7 +36,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
