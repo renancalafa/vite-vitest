@@ -2,12 +2,15 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import Button from './Button';
+import Button from './components/Button';
+import Form from './components/Form';
+import List from './components/List';
 
 function App() {
   const [count, setCount] = useState(0);
   const [count2, setCount2] = useState(0);
   const [seconds, setSeconds] = useState(20);
+  const [list, setList] = useState<string[]>([]);
 
   const handleIncrementCount2 = () => setCount2((count2) => count2 + 1);
 
@@ -23,7 +26,7 @@ function App() {
         </a>
       </div>
 
-      <h1>Vite + React</h1>
+      <h1>Vite + React && To-Do List</h1>
 
       <div className="card">
         <button onClick={() => {setCount((count) => count + 1); setSeconds((seconds) => seconds - (seconds / 20))}}>
@@ -33,9 +36,15 @@ function App() {
 
         <Button onClick={handleIncrementCount2}>{count2}</Button>
 
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <Form 
+          setList = { setList }
+          list = { list }
+        />
+
+        <List 
+          setList = { setList }
+          list = { list } 
+        />
       </div>
 
       <p className="read-the-docs">

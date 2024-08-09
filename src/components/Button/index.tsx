@@ -1,7 +1,6 @@
 import type { FC, PropsWithChildren } from "react";
 
 interface ButtonProps extends PropsWithChildren {
-  // children: ReactNode;
   onClick: () => void;
   disabled?: boolean;
 }

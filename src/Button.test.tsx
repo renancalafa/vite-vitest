@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Button from './Button';
+import Button from './components/Button';
 
 describe('Button Component', () => {
   it('should call onClick when button is clicked', async () => {
