@@ -1,12 +1,10 @@
-import { Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
+import { FC, FormEvent, memo, useState } from "react";
 import './index.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FormProps } from "../../types";
 
-interface FormProps {
-  list: string[]; 
-  setList: Dispatch<SetStateAction<string[]>>;
-}
+
 
 const Form: FC<FormProps> = ({ list, setList }) => {
   const [inputValue, setInputValue] = useState("");
@@ -15,7 +13,7 @@ const Form: FC<FormProps> = ({ list, setList }) => {
     e.preventDefault();
 
     if(!inputValue) {
-      toast.error("I don't think you're suppose to enter black tasks, you squid....");
+      toast.error("I don't think you're suppose to enter blank tasks, you squid....");
       return;
     }
     setList([...list, inputValue]);
@@ -42,4 +40,5 @@ const Form: FC<FormProps> = ({ list, setList }) => {
   );
 };
 
+//export default memo(Form);
 export default Form;
