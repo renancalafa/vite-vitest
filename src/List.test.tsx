@@ -3,10 +3,13 @@ import userEvent from '@testing-library/user-event';
 import List from './components/List';
 
 describe('List Component', () => {
-
-it('should render list items correctly', () => {
+  it('should render list items correctly', () => {
     const mockSetList = vi.fn();
-    const mockList = ['Task 1', 'Task 2', 'Task 3'];
+    const mockList = [
+      { task: 'Task 1', id: '0' },
+      { task: 'Task 2', id: '1' },
+      { task: 'Task 3', id: '2' },
+    ];
 
     render(<List list={mockList} setList={mockSetList} />);
 
@@ -20,20 +23,31 @@ it('should render list items correctly', () => {
   it('should delete an item from the list when "X" button is clicked', async () => {
     const user = userEvent.setup();
     const mockSetList = vi.fn();
-    const mockList = ['Task 1', 'Task 2', 'Task 3'];
+    const mockList = [
+      { task: 'Task 1', id: '0' },
+      { task: 'Task 2', id: '1' },
+      { task: 'Task 3', id: '2' },
+    ];
 
     render(<List list={mockList} setList={mockSetList} />);
 
     const deleteButtons = screen.getAllByRole('button', { name: /x/i });
     await user.click(deleteButtons[1]);
 
-    expect(mockSetList).toHaveBeenCalledWith(['Task 1', 'Task 3']);
+    expect(mockSetList).toHaveBeenCalledWith([
+      { task: 'Task 1', id: '0' },
+      { task: 'Task 3', id: '2' },
+    ]);
   });
 
   it('should delete an item from the list when "X" button is clicked', async () => {
     const user = userEvent.setup();
     const mockSetList = vi.fn();
-    const mockList = ['Task 1', 'Task 2', 'Task 3'];
+    const mockList = [
+      { task: 'Task 1', id: '0' },
+      { task: 'Task 2', id: '0' },
+      { task: 'Task 3', id: '0' },
+    ];
 
     render(<List list={mockList} setList={mockSetList} />);
 
@@ -42,8 +56,5 @@ it('should render list items correctly', () => {
 
     await user.click(checkboxes[1]);
     expect(checkboxes[1]).toBeChecked();
-
   });
-
-
 });

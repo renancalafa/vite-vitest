@@ -1,6 +1,12 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from 'react';
 
 export interface FormProps {
-    list: string[]; 
-    setList: Dispatch<SetStateAction<string[]>>;
-  }
+  list: ListItem[];
+  setList: Dispatch<SetStateAction<ListItem[]>>;
+  placeHolderInputForm: string;
+}
+
+export interface ListItem {
+  id: string;
+  task: string;
+}

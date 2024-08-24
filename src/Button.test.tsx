@@ -12,18 +12,21 @@ describe('Button Component', () => {
     const buttonElement = screen.getByText(/click me/i);
     await user.click(buttonElement);
     expect(buttonElement).toBeEnabled();
-    expect(handleClick).toHaveBeenCalledTimes(1); 
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
-
 
   it('should not call onClick when disabled prop is passed', async () => {
     const user = userEvent.setup();
     const handleClick = vi.fn();
-    render(<Button onClick={handleClick} disabled>Click me</Button>);
+    render(
+      <Button onClick={handleClick} disabled>
+        Click me
+      </Button>
+    );
 
     const buttonElement = screen.getByText(/click me/i);
     await user.click(buttonElement);
     expect(buttonElement).toBeDisabled();
-    expect(handleClick).not.toHaveBeenCalled(); 
+    expect(handleClick).not.toHaveBeenCalled();
   });
 });

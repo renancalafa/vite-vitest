@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import Form from './components/Form';
 
 describe('Form Component', () => {
@@ -7,16 +7,23 @@ describe('Form Component', () => {
     const user = userEvent.setup();
 
     const mockSetList = vi.fn();
-    render(<Form list={[]} setList={mockSetList} />);
+    render(
+      <Form list={[]} setList={mockSetList} placeHolderInputForm="Task" />
+    );
 
-    const inputElement = screen.getByPlaceholderText(/task/i);
+    const inputElement = screen.getByPlaceholderText(/Task/i);
     const submitButton = screen.getByRole('button', { name: /\+/i });
 
     await user.type(inputElement, 'New Task');
     await user.click(submitButton);
 
     expect(mockSetList).toHaveBeenCalledTimes(1);
-    expect(mockSetList).toHaveBeenCalledWith(['New Task']);
+    expect(mockSetList).toHaveBeenCalledWith([
+      expect.objectContaining({
+        task: 'New Task',
+        id: expect.any(String),
+      }),
+    ]);
     expect(inputElement).toHaveValue('');
   });
 
@@ -24,7 +31,9 @@ describe('Form Component', () => {
     const user = userEvent.setup();
     const mockSetList = vi.fn();
 
-    render(<Form list={[]} setList={mockSetList} />);
+    render(
+      <Form list={[]} setList={mockSetList} placeHolderInputForm="Task" />
+    );
 
     const submitButton = screen.getByRole('button', { name: /\+/i });
     await user.click(submitButton);
@@ -32,5 +41,4 @@ describe('Form Component', () => {
     expect(mockSetList).not.toHaveBeenCalled();
     expect(screen.getByText(/i don't think/i)).toBeInTheDocument();
   });
-
 });
