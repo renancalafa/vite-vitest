@@ -1,17 +1,15 @@
+import type { FC, PropsWithChildren } from "react";
 
-interface ButtonProps {
-    text: string;
-    onClick: () => void;
-    disabled?: boolean;
-  }
-
-const Button: React.FC<ButtonProps> = ({text, onClick, disabled = false}) => {
-    
-    return ( 
-        <div>
-            <button disabled={disabled} onClick={onClick}>{text}</button>
-        </div>
-     );
+interface ButtonProps extends PropsWithChildren {
+  // children: ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
 }
- 
+
+const Button: FC<ButtonProps> = ({ children, onClick, disabled = false }) => {
+  return (
+    <button disabled={disabled} onClick={onClick}>{children}</button>
+  );
+}
+
 export default Button;

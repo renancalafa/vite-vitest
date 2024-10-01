@@ -1,33 +1,29 @@
-// src/Button.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Button from './Button';
 
 describe('Button Component', () => {
-  test('calls onClick when clicked', () => {
+  it('should call onClick when button is clicked', async () => {
+    const user = userEvent.setup();
+
     const handleClick = vi.fn();
-    render(<Button text="Click me" onClick={handleClick} />);
+    render(<Button onClick={handleClick}>Click me</Button>);
+
     const buttonElement = screen.getByText(/click me/i);
-    fireEvent.click(buttonElement);
+    await user.click(buttonElement);
+    expect(buttonElement).toBeEnabled();
     expect(handleClick).toHaveBeenCalledTimes(1); 
   });
 
-  test('is disabled when disabled prop is true', () => {
-    render(<Button text="Click me" onClick={() => {}} disabled />);
-    const buttonElement = screen.getByText(/click me/i);
-    expect(buttonElement).toBeDisabled(); 
-  });
 
-  test('is enabled when disabled prop is false', () => {
-    render(<Button text="Click me" onClick={() => {}} disabled={false} />);
-    const buttonElement = screen.getByText(/click me/i);
-    expect(buttonElement).not.toBeDisabled(); 
-  });
-
-  test('dont call onClick when clicked disabled', () => {
+  it('should not call onClick when disabled prop is passed', async () => {
+    const user = userEvent.setup();
     const handleClick = vi.fn();
-    render(<Button text="Click me" onClick={handleClick} disabled/>);
+    render(<Button onClick={handleClick} disabled>Click me</Button>);
+
     const buttonElement = screen.getByText(/click me/i);
-    fireEvent.click(buttonElement);
+    await user.click(buttonElement);
+    expect(buttonElement).toBeDisabled();
     expect(handleClick).not.toHaveBeenCalled(); 
   });
 });
